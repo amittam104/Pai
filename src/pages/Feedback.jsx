@@ -1,5 +1,5 @@
 function Feedback() {
-  return <div>Feedback</div>;
+  return <div className="text-3xl font-bold">Feedback</div>;
 }
 
 export default Feedback;
