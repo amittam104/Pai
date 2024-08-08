@@ -15,8 +15,8 @@ function AppNav() {
     <nav className="w-full">
       <ul className="flex flex-col items-stretch gap-4 font-semibold text-slate-400 ">
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100  ${
-            location.pathname === "/dashboard" && "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100  ${
+            location.pathname === "/dashboard" && "bg-slate-100 text-primary"
           }`}
         >
           <Link to="/dashboard" className="flex items-center gap-4 px-14 py-4">
@@ -24,9 +24,8 @@ function AppNav() {
           </Link>
         </li>
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100 ${
-            location.pathname === "/transactions" &&
-            "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100 ${
+            location.pathname === "/transactions" && "bg-slate-100 text-primary"
           }`}
         >
           <Link
@@ -38,8 +37,8 @@ function AppNav() {
           </Link>
         </li>
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100  ${
-            location.pathname === "/accounts" && "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100  ${
+            location.pathname === "/accounts" && "bg-slate-100 text-primary"
           }`}
         >
           <Link to="/accounts" className="flex items-center gap-4 px-14 py-4">
@@ -47,8 +46,8 @@ function AppNav() {
           </Link>
         </li>
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100 ${
-            location.pathname === "/users" && "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100 ${
+            location.pathname === "/users" && "bg-slate-100 text-primary"
           }`}
         >
           <Link to="/users" className="flex items-center gap-4 px-14 py-4">
@@ -56,8 +55,8 @@ function AppNav() {
           </Link>
         </li>
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100 ${
-            location.pathname === "/feedback" && "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100 ${
+            location.pathname === "/feedback" && "bg-slate-100 text-primary"
           }`}
         >
           <Link to="/feedback" className="flex items-center gap-4 px-14 py-4">
@@ -65,8 +64,8 @@ function AppNav() {
           </Link>
         </li>
         <li
-          className={`hover:bg-slate-50 hover:text-slate-500 w-100 ${
-            location.pathname === "/settings" && "bg-slate-100 text-slate-600"
+          className={`hover:bg-slate-50 hover:text-primary w-100 ${
+            location.pathname === "/settings" && "bg-slate-100 text-primary"
           }`}
         >
           <Link to="/settings" className="flex items-center gap-4 px-14 py-4">
