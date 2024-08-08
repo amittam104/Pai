@@ -1,99 +1,29 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { DataTable } from "@/ui/transactions/data-table";
 import { columns } from "@/ui/transactions/columns";
+import { useQuery } from "@tanstack/react-query";
+import { getTransactions } from "@/services/apiTransactions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function transactionsTable() {
-  const dummyData = [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "completed",
-      accountNo: "1001",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "deposit",
-      email: "m@example.com",
-      balance: 2200,
-      recipientAccountNo: 1004,
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "failed",
-      accountNo: "1002",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "withdraw",
-      email: "n@example.com",
-      balance: 800,
-      recipientAccountNo: 1001,
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "completed",
-      accountNo: "1003",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "deposit",
-      email: "o@example.com",
-      balance: 8493,
-      recipientAccountNo: 1005,
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "completed",
-      accountNo: "1004",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "withdraw",
-      email: "m@example.com",
-      balance: 9872,
-      recipientAccountNo: 1002,
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "completed",
-      accountNo: "1005",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "deposit",
-      email: "m@example.com",
-      balance: 800,
-      recipientAccountNo: 1001,
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "completed",
-      accountNo: "1005",
-      date: "08-08-2024",
-      time: "17:20",
-      type: "deposit",
-      email: "m@example.com",
-      balance: 800,
-      recipientAccountNo: 1001,
-    },
-  ];
+  const { data, isLoading } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: getTransactions,
+  });
 
-  // const paiDummyData = [
-  //   {
-  //     id: 1,
-  //     created_at: "2024-08-08T10:01:58.920676+00:00",
-  //     accountNo: 1001,
-  //     type: "deposit",
-  //     amount: 200,
-  //     date: "2024-08-08T15:31:37",
-  //     status: "completed",
-  //     balance: 2200,
-  //     recipientAccountNo: 1004,
-  //   },
-  // ];
+  if (isLoading)
+    return (
+      <div className="flex flex-col space-y-3 mt-4">
+        <Skeleton className="h-32 w-full rounded-none " />
+        <div className=" space-y-4 ">
+          <Skeleton className="h-96 w-full py-2 px-4" />
+        </div>
+      </div>
+    );
 
   return (
     <div className="container mx-auto">
-      <DataTable columns={columns} data={dummyData} />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
