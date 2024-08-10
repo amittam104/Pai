@@ -46,10 +46,12 @@ export function DataTable({ columns, data }) {
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={table.getColumn("email")?.getFilterValue() ?? ""}
+          placeholder="Filter account owner name..."
+          value={table.getColumn("accountHolderName")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table
+              .getColumn("accountHolderName")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -80,7 +82,7 @@ export function DataTable({ columns, data }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-none bg-white border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -13,3 +13,13 @@ export async function getAccounts() {
     console.error(error.message);
   }
 }
+
+export async function deleteAccounts(id) {
+  try {
+    const { error } = await supabase.from("accounts").delete().eq("id", id);
+
+    if (error) throw new Error("Could not delete the account");
+  } catch (error) {
+    console.error(error.message);
+  }
+}

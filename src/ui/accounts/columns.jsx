@@ -9,24 +9,36 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = [
+export const columns = (mutate) => [
+  {
+    accessorKey: "accountNo",
+    header: "Account No",
+  },
+  {
+    accessorKey: "accountHolderName",
+    header: "Owner Name",
+  },
+  {
+    accessorKey: "accountType",
+    header: "Account Type",
+  },
   {
     accessorKey: "status",
     header: "Status",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "BranchId",
+    header: "Branch",
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "balance",
+    header: () => <div className="text-right">Balance</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const balance = parseFloat(row.getValue("balance"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(amount);
+      }).format(balance);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
@@ -34,7 +46,11 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const account = row.original;
+
+      function handleDeleteAccount() {
+        mutate(account.id);
+      }
 
       return (
         <DropdownMenu>
@@ -46,14 +62,13 @@ export const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleDeleteAccount}
+              className="text-destructive font-semibold"
+            >
+              Delete Account
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
