@@ -19,7 +19,7 @@ function AccountsTable() {
       toast({
         title: "Account deleted Successfully",
       });
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
     onError: () => {
       toast({

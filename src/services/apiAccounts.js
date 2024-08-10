@@ -23,3 +23,18 @@ export async function deleteAccounts(id) {
     console.error(error.message);
   }
 }
+
+export async function addAccount(account) {
+  try {
+    const { data, error } = await supabase
+      .from("accounts")
+      .insert([account])
+      .select();
+
+    if (error) throw new Error("Could not create new account.");
+
+    return data;
+  } catch (error) {
+    console.error(error.message);
+  }
+}

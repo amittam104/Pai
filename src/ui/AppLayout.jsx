@@ -7,7 +7,7 @@ function AppLayout() {
     <div className="grid grid-rows-12 grid-cols-7 h-screen">
       <Sidebar />
       <Header />
-      <main className="bg-gray-50 col-span-6 row-span-11 py-10 px-14">
+      <main className="bg-gray-50 col-span-6 row-span-11 py-10 px-14 overflow-y-scroll">
         <Outlet />
       </main>
     </div>
