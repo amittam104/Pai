@@ -10,6 +10,21 @@ export async function getTransactions() {
 
     return transactions;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
+  }
+}
+
+export async function deleteTransaction(id) {
+  try {
+    const { data, error } = await supabase
+      .from("transactions")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw new Error("Could not get all the transactions");
+
+    return data;
+  } catch (error) {
+    console.error(error.message);
   }
 }

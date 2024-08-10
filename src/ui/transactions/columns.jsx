@@ -8,9 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown } from "lucide-react";
 
-export const columns = [
+export const columns = (mutate) => [
   {
     accessorKey: "accountNo",
     header: "Account No",
@@ -40,20 +39,6 @@ export const columns = [
     header: "Recipient acc",
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: "amount",
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
@@ -63,12 +48,18 @@ export const columns = [
         currency: "USD",
       }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className={`text-right font-medium`}>{formatted}</div>;
     },
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const transactions = row.original;
+
+      function handleDeleteRow() {
+        mutate(transactions.id);
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -80,12 +71,15 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive font-semibold">
+            <DropdownMenuItem
+              onClick={handleDeleteRow}
+              className="text-destructive font-semibold"
+            >
               Delete Data
             </DropdownMenuItem>
-            <DropdownMenuItem className="font-semibold">
+            {/* <DropdownMenuItem className="font-semibold">
               Edit Data
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

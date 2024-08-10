@@ -8,6 +8,7 @@ import Settings from "./pages/Settings";
 import AppLayout from "./ui/AppLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ function App() {
           </Route>
         </Routes>
         <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} />
       </BrowserRouter>
     </QueryClientProvider>
   );
