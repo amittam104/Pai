@@ -15,17 +15,17 @@ import { useForm } from "react-hook-form";
 
 function CreateNewAccount() {
   const queryClient = useQueryClient();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
 
   const { mutate } = useMutation({
     mutationFn: addAccount,
-    onSuccess: () => {
-      toast({
-        title: "Account created Successfully",
-      });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
-      reset();
-    },
     onError: () => {
       toast({
         variant: "destructive",
@@ -33,10 +33,23 @@ function CreateNewAccount() {
         description: "Please try Again! Reload the page if the issue persists.",
       });
     },
+    onSuccess: (data) => {
+      !data
+        ? toast({
+            variant: "destructive",
+            title: "Something went wrong",
+            description:
+              "The account might already be present. Please try again!",
+          })
+        : toast({
+            title: "Account created Successfully",
+          });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      reset();
+    },
   });
 
   function onSubmit(data) {
-    console.log(data);
     mutate(data);
   }
 
@@ -56,8 +69,19 @@ function CreateNewAccount() {
               id="accountNo"
               type="number"
               placeholder="1005"
-              {...register("accountNo")}
+              {...register("accountNo", {
+                required: "Please enter the account number",
+                maxLength: {
+                  value: 4,
+                  message: "Account name cannot be more than 4 characters",
+                },
+              })}
             />
+            {errors?.accountNo?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.accountNo?.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="accountHolderName">Full Name</Label>
@@ -65,8 +89,15 @@ function CreateNewAccount() {
               id="accountHolderName"
               type="text"
               placeholder="Robinson"
-              {...register("accountHolderName")}
+              {...register("accountHolderName", {
+                required: "Please enter your full name",
+              })}
             />
+            {errors?.accountHolderName?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.accountHolderName?.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="accountType">Account Type</Label>
@@ -74,8 +105,15 @@ function CreateNewAccount() {
               id="accountType"
               type="text"
               placeholder="savings"
-              {...register("accountType")}
+              {...register("accountType", {
+                required: "Please ennter the account type",
+              })}
             />
+            {errors?.accountType?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.accountType?.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="status">Status</Label>
@@ -83,12 +121,34 @@ function CreateNewAccount() {
               id="status"
               type="text"
               defaultValue="active"
-              {...register("status")}
+              {...register("status", {
+                required: "Please enter the account status",
+              })}
             />
+            {errors?.status?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.status?.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="BranchId">Branch</Label>
-            <Input id="BranchId" type="number" {...register("BranchId")} />
+            <Input
+              id="BranchId"
+              type="number"
+              {...register("BranchId", {
+                required: "Please enter a branch Id",
+                maxLength: {
+                  value: 4,
+                  message: "Branch Id cannot be more than 4 characters",
+                },
+              })}
+            />
+            {errors?.BranchId?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.BranchId?.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="balance">Balance</Label>
@@ -96,8 +156,23 @@ function CreateNewAccount() {
               id="balance"
               type="number"
               defaultValue={0}
-              {...register("balance")}
+              {...register("balance", {
+                required: "Please enter a initial balance in the account",
+                maxLength: {
+                  value: 4,
+                  message: "Iinital balance cannot be more than 4 digits",
+                },
+                min: {
+                  value: 1,
+                  message: "The initial balance should not be 0",
+                },
+              })}
             />
+            {errors?.balance?.message && (
+              <p className="text-destructive font-sm my-2">
+                {errors?.balance?.message}
+              </p>
+            )}
           </div>
           <Button type="submit" className="w-full">
             Create an account
