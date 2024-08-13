@@ -5,18 +5,22 @@ import { useState } from "react";
 
 function Accounts() {
   const [showForm, setShowForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   return (
     <div className="flex flex-col gap-4 bg-slate-50">
-      <h1 className="text-3xl font-bold ">Transactions</h1>
-      <AccountsTable />
+      <h1 className="text-3xl font-bold ">Accounts</h1>
+      <AccountsTable
+        showEditForm={showEditForm}
+        setShowEditForm={setShowEditForm}
+      />
       <div className="self-end mr-8 mb-4">
         <Button size="default" onClick={() => setShowForm((show) => !show)}>
           {!showForm ? `Add Account` : "Close Form"}
         </Button>
       </div>
 
-      {showForm && <CreateNewAccount />}
+      {showForm && <CreateNewAccount showEditForm={showEditForm} />}
     </div>
   );
 }

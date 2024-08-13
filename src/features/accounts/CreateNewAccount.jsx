@@ -13,7 +13,8 @@ import { addAccount } from "@/services/apiAccounts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
-function CreateNewAccount() {
+function CreateNewAccount({ showEditForm }) {
+  console.log(showEditForm);
   const queryClient = useQueryClient();
   const {
     register,
@@ -56,9 +57,13 @@ function CreateNewAccount() {
   return (
     <Card className="mx-auto w-96">
       <CardHeader>
-        <CardTitle className="text-xl">Add new account</CardTitle>
+        <CardTitle className="text-xl">
+          {showEditForm ? "Edit Account" : "Create account"}
+        </CardTitle>
         <CardDescription>
-          Enter your information to create an account
+          {showEditForm
+            ? "Enter updated information to update this account"
+            : "Enter your information to create an account"}
         </CardDescription>
       </CardHeader>
       <CardContent>

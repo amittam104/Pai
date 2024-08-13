@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = (mutate) => [
+export const columns = (mutate, setShowEditForm) => [
   {
     accessorKey: "accountNo",
     header: "Account No",
@@ -25,10 +25,6 @@ export const columns = (mutate) => [
   {
     accessorKey: "status",
     header: "Status",
-  },
-  {
-    accessorKey: "BranchId",
-    header: "Branch",
   },
   {
     accessorKey: "balance",
@@ -52,6 +48,11 @@ export const columns = (mutate) => [
         mutate(account.id);
       }
 
+      function handleEditAccount() {
+        console.log(account);
+        setShowEditForm((show) => !show);
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -68,6 +69,12 @@ export const columns = (mutate) => [
               className="text-destructive font-semibold"
             >
               Delete Account
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleEditAccount}
+              className="text-foreground font-semibold"
+            >
+              Edit Account
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

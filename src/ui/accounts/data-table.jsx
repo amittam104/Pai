@@ -23,8 +23,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import CreateNewAccount from "@/features/accounts/CreateNewAccount";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, showEditForm }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
 
@@ -150,6 +151,7 @@ export function DataTable({ columns, data }) {
           Next
         </Button>
       </div>
+      {showEditForm && <CreateNewAccount showEditForm={showEditForm} />}
     </div>
   );
 }
