@@ -6,7 +6,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
 
-function AccountsTable({ showEditForm, setShowEditForm }) {
+function AccountsTable({
+  showEditForm,
+  setShowEditForm,
+  setEditAccount,
+  editAccount,
+}) {
   const queryClient = useQueryClient();
 
   const { data: accounts, isLoading } = useQuery({
@@ -44,9 +49,10 @@ function AccountsTable({ showEditForm, setShowEditForm }) {
   return (
     <div className="container mx-auto ">
       <DataTable
-        columns={columns(mutate, setShowEditForm)}
+        columns={columns(mutate, setShowEditForm, setEditAccount)}
         data={accounts}
         showEditForm={showEditForm}
+        editAccount={editAccount}
       />
     </div>
   );

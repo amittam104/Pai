@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = (mutate, setShowEditForm) => [
+export const columns = (mutate, setShowEditForm, setEditAccount) => [
   {
     accessorKey: "accountNo",
     header: "Account No",
@@ -49,8 +49,8 @@ export const columns = (mutate, setShowEditForm) => [
       }
 
       function handleEditAccount() {
-        console.log(account);
         setShowEditForm((show) => !show);
+        setEditAccount(account);
       }
 
       return (

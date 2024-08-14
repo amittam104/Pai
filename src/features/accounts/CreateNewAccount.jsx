@@ -9,12 +9,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { addAccount } from "@/services/apiAccounts";
+import {
+  addAccount,
+  updateAccount as updateAccountApi,
+} from "@/services/apiAccounts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
-function CreateNewAccount({ showEditForm }) {
-  console.log(showEditForm);
+function CreateNewAccount({ showEditForm, editAccount = {} }) {
+  const {
+    accountNo,
+    accountHolderName,
+    accountType,
+    status,
+    BranchId,
+    balance,
+  } = editAccount;
+
   const queryClient = useQueryClient();
   const {
     register,
@@ -22,8 +33,6 @@ function CreateNewAccount({ showEditForm }) {
     reset,
     formState: { errors },
   } = useForm();
-
-  console.log(errors);
 
   const { mutate } = useMutation({
     mutationFn: addAccount,
@@ -50,8 +59,44 @@ function CreateNewAccount({ showEditForm }) {
     },
   });
 
+  const { mutate: updateAccount } = useMutation({
+    mutationFn: (accountData) => updateAccountApi(accountData),
+    onError: () => {
+      toast({
+        variant: "destructive",
+        title: "Failed to update the account",
+        description: "Please try Again! Reload the page if the issue persists.",
+      });
+    },
+    onSuccess: (data) => {
+      !data
+        ? toast({
+            variant: "destructive",
+            title: "Something went wrong",
+            description: "Please try again!",
+          })
+        : toast({
+            title: "Account created Successfully",
+          });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      reset();
+    },
+  });
+
   function onSubmit(data) {
-    mutate(data);
+    const AccountData = {
+      ...data,
+      accountNo: Number(data.accountNo),
+      BranchId: Number(data.BranchId),
+      balance: Number(data.balance),
+    };
+
+    console.log(editAccount);
+
+    if (editAccount.accountNo) updateAccount(AccountData);
+    else {
+      mutate(AccountData);
+    }
   }
 
   return (
@@ -73,6 +118,7 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="accountNo"
               type="number"
+              defaultValue={editAccount ? accountNo : ""}
               placeholder="1005"
               {...register("accountNo", {
                 required: "Please enter the account number",
@@ -93,7 +139,8 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="accountHolderName"
               type="text"
-              placeholder="Robinson"
+              defaultValue={editAccount ? accountHolderName : ""}
+              placeholder="John Doe"
               {...register("accountHolderName", {
                 required: "Please enter your full name",
               })}
@@ -109,6 +156,7 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="accountType"
               type="text"
+              defaultValue={editAccount ? accountType : ""}
               placeholder="savings"
               {...register("accountType", {
                 required: "Please ennter the account type",
@@ -125,7 +173,8 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="status"
               type="text"
-              defaultValue="active"
+              placeholder="active"
+              defaultValue={editAccount ? status : "active"}
               {...register("status", {
                 required: "Please enter the account status",
               })}
@@ -141,6 +190,8 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="BranchId"
               type="number"
+              placeholder="5725"
+              defaultValue={editAccount ? BranchId : ""}
               {...register("BranchId", {
                 required: "Please enter a branch Id",
                 maxLength: {
@@ -160,7 +211,8 @@ function CreateNewAccount({ showEditForm }) {
             <Input
               id="balance"
               type="number"
-              defaultValue={0}
+              placeholder="7250"
+              defaultValue={editAccount ? balance : 0}
               {...register("balance", {
                 required: "Please enter a initial balance in the account",
                 maxLength: {
@@ -180,7 +232,7 @@ function CreateNewAccount({ showEditForm }) {
             )}
           </div>
           <Button type="submit" className="w-full">
-            Create an account
+            {showEditForm ? "Edit Account" : "Create an account"}
           </Button>
           <Button variant="outline" type="reset" className="w-full">
             Cancel

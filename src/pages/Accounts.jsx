@@ -6,6 +6,7 @@ import { useState } from "react";
 function Accounts() {
   const [showForm, setShowForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [editAccount, setEditAccount] = useState({});
 
   return (
     <div className="flex flex-col gap-4 bg-slate-50">
@@ -13,6 +14,8 @@ function Accounts() {
       <AccountsTable
         showEditForm={showEditForm}
         setShowEditForm={setShowEditForm}
+        setEditAccount={setEditAccount}
+        editAccount={editAccount}
       />
       <div className="self-end mr-8 mb-4">
         <Button size="default" onClick={() => setShowForm((show) => !show)}>

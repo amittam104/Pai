@@ -24,14 +24,30 @@ export async function deleteAccounts(id) {
   }
 }
 
-export async function addAccount(account) {
+export async function addAccount(accountData) {
   try {
     const { data, error } = await supabase
       .from("accounts")
-      .insert([account])
+      .insert([accountData])
       .select();
 
     if (error) throw new Error("Could not create new account.");
+
+    return data;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+export async function updateAccount(accountData) {
+  try {
+    const { data, error } = await supabase
+      .from("accounts")
+      .update({ ...accountData })
+      .eq("accountNo", accountData.accountNo)
+      .select();
+
+    if (error) throw new Error("Could not update the account.");
 
     return data;
   } catch (error) {
