@@ -2,9 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { deleteAccounts, getAccounts } from "@/services/apiAccounts";
 import { columns } from "@/ui/accounts/columns";
 import { DataTable } from "@/ui/accounts/data-table";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 function AccountsTable({
   showEditForm,
@@ -12,29 +11,12 @@ function AccountsTable({
   setEditAccount,
   editAccount,
 }) {
-  const queryClient = useQueryClient();
-
   const { data: accounts, isLoading } = useQuery({
     queryKey: ["accounts"],
     queryFn: getAccounts,
   });
 
-  const { mutate } = useMutation({
-    mutationFn: deleteAccounts,
-    onSuccess: () => {
-      toast({
-        title: "Account deleted Successfully",
-      });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
-    },
-    onError: () => {
-      toast({
-        variant: "destructive",
-        title: "Failed to delete the row",
-        description: "Please try Again! Reload the page if the issue persists.",
-      });
-    },
-  });
+  const { mutate } = useDeleteCabin();
 
   if (isLoading)
     return (

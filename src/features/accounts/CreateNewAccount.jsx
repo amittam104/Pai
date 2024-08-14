@@ -8,13 +8,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
-import {
-  addAccount,
-  updateAccount as updateAccountApi,
-} from "@/services/apiAccounts";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useAddAccount } from "./useAddAccount";
+import { useUpdateAccount } from "./useUpdateAccount";
 
 function CreateNewAccount({ showEditForm, editAccount = {} }) {
   const {
@@ -26,7 +22,6 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
     balance,
   } = editAccount;
 
-  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -34,54 +29,8 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
     formState: { errors },
   } = useForm();
 
-  const { mutate } = useMutation({
-    mutationFn: addAccount,
-    onError: () => {
-      toast({
-        variant: "destructive",
-        title: "Failed to create the account",
-        description: "Please try Again! Reload the page if the issue persists.",
-      });
-    },
-    onSuccess: (data) => {
-      !data
-        ? toast({
-            variant: "destructive",
-            title: "Something went wrong",
-            description:
-              "The account might already be present. Please try again!",
-          })
-        : toast({
-            title: "Account created Successfully",
-          });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
-      reset();
-    },
-  });
-
-  const { mutate: updateAccount } = useMutation({
-    mutationFn: (accountData) => updateAccountApi(accountData),
-    onError: () => {
-      toast({
-        variant: "destructive",
-        title: "Failed to update the account",
-        description: "Please try Again! Reload the page if the issue persists.",
-      });
-    },
-    onSuccess: (data) => {
-      !data
-        ? toast({
-            variant: "destructive",
-            title: "Something went wrong",
-            description: "Please try again!",
-          })
-        : toast({
-            title: "Account created Successfully",
-          });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
-      reset();
-    },
-  });
+  const { mutate } = useAddAccount();
+  const { updateAccount } = useUpdateAccount();
 
   function onSubmit(data) {
     const AccountData = {
@@ -90,8 +39,6 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
       BranchId: Number(data.BranchId),
       balance: Number(data.balance),
     };
-
-    console.log(editAccount);
 
     if (editAccount.accountNo) updateAccount(AccountData);
     else {
