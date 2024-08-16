@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import AccountsTable from "@/features/accounts/AccountsTable";
 import CreateNewAccount from "@/features/accounts/CreateNewAccount";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 function Accounts() {
   const [showForm, setShowForm] = useState(false);
@@ -17,13 +18,24 @@ function Accounts() {
         setEditAccount={setEditAccount}
         editAccount={editAccount}
       />
-      <div className="self-end mr-8 mb-4">
+      {/* <div className="self-end mr-8 mb-4">
         <Button size="default" onClick={() => setShowForm((show) => !show)}>
           {!showForm ? `Add Account` : "Close Form"}
         </Button>
-      </div>
+      </div> */}
 
-      {showForm && <CreateNewAccount showEditForm={showEditForm} />}
+      {
+        <Dialog>
+          <DialogTrigger className="flex self-end mr-8">
+            <Button size="default" onClick={() => setShowForm((show) => !show)}>
+              Add account
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[55rem] p-12">
+            <CreateNewAccount showEditForm={showEditForm} />
+          </DialogContent>
+        </Dialog>
+      }
     </div>
   );
 }

@@ -25,7 +25,13 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import CreateNewAccount from "@/features/accounts/CreateNewAccount";
 
-export function DataTable({ columns, data, showEditForm, editAccount }) {
+export function DataTable({
+  columns,
+  data,
+  showEditForm,
+  editAccount,
+  addAccount,
+}) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
 

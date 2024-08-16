@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,7 +26,6 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -47,7 +47,7 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
   }
 
   return (
-    <Card className="mx-auto w-96">
+    <Card className="mx-auto w-full border-none">
       <CardHeader>
         <CardTitle className="text-xl">
           {showEditForm ? "Edit Account" : "Create account"}
@@ -59,7 +59,10 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="grid grid-cols-2 gap-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="grid gap-2">
             <Label htmlFor="accountNo">Account No</Label>
             <Input
@@ -178,10 +181,17 @@ function CreateNewAccount({ showEditForm, editAccount = {} }) {
               </p>
             )}
           </div>
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-52 col-span-2 place-self-center mt-8"
+          >
             {showEditForm ? "Edit Account" : "Create an account"}
           </Button>
-          <Button variant="outline" type="reset" className="w-full">
+          <Button
+            variant="outline"
+            type="reset"
+            className="w-52 col-span-2 place-self-center"
+          >
             Cancel
           </Button>
         </form>

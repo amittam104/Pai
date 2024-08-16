@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export function useAddAccount() {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isSuccess } = useMutation({
     mutationFn: addAccount,
     onError: () => {
       toast({
@@ -29,5 +29,5 @@ export function useAddAccount() {
     },
   });
 
-  return { mutate };
+  return { mutate, isSuccess };
 }

@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import { Skeleton } from "@/components/ui/skeleton";
-import { deleteAccounts, getAccounts } from "@/services/apiAccounts";
+import { getAccounts } from "@/services/apiAccounts";
 import { columns } from "@/ui/accounts/columns";
 import { DataTable } from "@/ui/accounts/data-table";
 import { useQuery } from "@tanstack/react-query";
 import { useDeleteCabin } from "./useDeleteCabin";
+import { useAddAccount } from "./useAddAccount";
 
 function AccountsTable({
   showEditForm,
@@ -17,6 +19,7 @@ function AccountsTable({
   });
 
   const { mutate } = useDeleteCabin();
+  const { mutate: addAccount } = useAddAccount();
 
   if (isLoading)
     return (
@@ -31,7 +34,14 @@ function AccountsTable({
   return (
     <div className="container mx-auto ">
       <DataTable
-        columns={columns(mutate, setShowEditForm, setEditAccount)}
+        columns={columns(
+          mutate,
+          setShowEditForm,
+          setEditAccount,
+          addAccount,
+          editAccount,
+          showEditForm
+        )}
         data={accounts}
         showEditForm={showEditForm}
         editAccount={editAccount}

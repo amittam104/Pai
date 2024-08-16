@@ -9,7 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const columns = (mutate, setShowEditForm, setEditAccount) => [
+export const columns = (
+  mutate,
+  setShowEditForm,
+  setEditAccount,
+  addAccount
+) => [
   {
     accessorKey: "accountNo",
     header: "Account No",
@@ -53,6 +58,14 @@ export const columns = (mutate, setShowEditForm, setEditAccount) => [
         setEditAccount(account);
       }
 
+      function handleDuplicateAccount() {
+        addAccount({
+          ...account,
+          accountHolderName: `Copy of ${account.accountHolderName}`,
+          accountNo: account.accountNo + Math.round(Math.random * 1),
+        });
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -70,11 +83,18 @@ export const columns = (mutate, setShowEditForm, setEditAccount) => [
             >
               Delete Account
             </DropdownMenuItem>
+
             <DropdownMenuItem
               onClick={handleEditAccount}
               className="text-foreground font-semibold"
             >
               Edit Account
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleDuplicateAccount}
+              className="text-foreground font-semibold"
+            >
+              Duplicate Account
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
