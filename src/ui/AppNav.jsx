@@ -4,7 +4,6 @@ import {
   IdCard,
   MessageSquareText,
   Settings,
-  User,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -45,15 +44,7 @@ function AppNav() {
             <IdCard /> <span>Accounts</span>
           </Link>
         </li>
-        <li
-          className={`hover:bg-slate-50 hover:text-primary w-100 ${
-            location.pathname === "/users" && "bg-slate-100 text-primary"
-          }`}
-        >
-          <Link to="/users" className="flex items-center gap-4 px-10 py-4">
-            <User /> <span>Users</span>
-          </Link>
-        </li>
+
         <li
           className={`hover:bg-slate-50 hover:text-primary w-100 ${
             location.pathname === "/feedback" && "bg-slate-100 text-primary"

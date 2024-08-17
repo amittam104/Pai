@@ -8,11 +8,10 @@ function AppSettings() {
   const { mutate } = useMutation({
     mutationFn: updateSettings,
     onSuccess: () => {
-      console.log("Success");
       queryClient.invalidateQueries({ queryKey: ["settings"] });
     },
     onError: (e) => {
-      console.log(e.message);
+      console.error(e.message);
     },
   });
 
@@ -20,8 +19,6 @@ function AppSettings() {
     const { value } = e.target;
 
     if (!value) return;
-
-    console.log(value);
 
     mutate({ [setting]: value });
   }
