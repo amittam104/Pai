@@ -14,3 +14,19 @@ export async function getSettings() {
     console.error(error);
   }
 }
+
+export async function updateSettings(newSetting) {
+  try {
+    const { data, error } = await supabase
+      .from("settings")
+      .update(newSetting)
+      .eq("id", 1)
+      .select();
+
+    if (error) throw new Error("Could not update the settings");
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
