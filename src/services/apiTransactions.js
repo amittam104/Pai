@@ -28,3 +28,16 @@ export async function deleteTransaction(id) {
     console.error(error.message);
   }
 }
+
+export async function getTransactionAmount() {
+  try {
+    let { data, error } = await supabase.from("transactions").select("amount");
+
+    if (error)
+      throw new Error("Could not get all the transactions. Please try again!");
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
