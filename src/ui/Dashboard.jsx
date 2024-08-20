@@ -12,9 +12,9 @@ export default function DashboardUi() {
           <SummaryTable />
           <DashboardPieChart />
         </div>
-        <div className="w-full">
+        {/* <div className="w-full">
           <DashboardLineChart />
-        </div>
+        </div> */}
       </main>
     </div>
   );

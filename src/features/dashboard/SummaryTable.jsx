@@ -23,13 +23,13 @@ function SummaryTable() {
     <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
-          <CardTitle>Transactions</CardTitle>
-          <CardDescription>
-            Recent transactions from your store.
+          <CardTitle className="font-semibold">Summary</CardTitle>
+          <CardDescription className="font-medium">
+            Recent transactions summary from your bank.
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
-          <Link href="#" prefetch={false}>
+          <Link to="/transactions">
             View All
             <LuArrowUpRight className="h-4 w-4" />
           </Link>
@@ -39,105 +39,68 @@ function SummaryTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead className="hidden xl:table-column">Type</TableHead>
-              <TableHead className="hidden xl:table-column">Status</TableHead>
-              <TableHead className="hidden xl:table-column">Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead>Acc No</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Amount</TableHead>
+              <TableHead className="text-right">Balance</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="font-medium">
             <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
+              <TableCell>1001</TableCell>
+              <TableCell>Liam Johnson</TableCell>
+              <TableCell className="">
+                <Badge className="text-xs " variant="outline">
+                  Deposit
                 </Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-23
-              </TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
+              <TableCell className="md:table-cell ">$756</TableCell>
+              <TableCell className="text-right font-bold">$2508.67</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                <div className="font-medium">Olivia Smith</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  olivia@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Refund</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Declined
+              <TableCell>1001</TableCell>
+              <TableCell>Amit Tambulkar</TableCell>
+              <TableCell className="">
+                <Badge className="text-xs " variant="outline">
+                  Deposit
                 </Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-24
-              </TableCell>
-              <TableCell className="text-right">$150.00</TableCell>
+              <TableCell className="md:table-cell ">$654</TableCell>
+              <TableCell className="text-right font-bold">$7643.23</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                <div className="font-medium">Noah Williams</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  noah@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">
-                Subscription
-              </TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
+              <TableCell>1001</TableCell>
+              <TableCell>Leam Nesson</TableCell>
+              <TableCell className="">
+                <Badge className="text-xs " variant="outline">
+                  Withdraw
                 </Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-25
-              </TableCell>
-              <TableCell className="text-right">$350.00</TableCell>
+              <TableCell className="md:table-cell ">$344</TableCell>
+              <TableCell className="text-right font-bold">$1243.67</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
+              <TableCell>1001</TableCell>
+              <TableCell>John Wick</TableCell>
+              <TableCell className="">
+                <Badge className="text-xs " variant="outline">
+                  Deposit
                 </Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-26
-              </TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
+              <TableCell className="md:table-cell ">$4356</TableCell>
+              <TableCell className="text-right font-bold">$5634.23</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden xl:table-column">Sale</TableCell>
-              <TableCell className="hidden xl:table-column">
-                <Badge className="text-xs" variant="outline">
-                  Approved
+              <TableCell>1001</TableCell>
+              <TableCell>Jon Snow</TableCell>
+              <TableCell className="">
+                <Badge className="text-xs " variant="outline">
+                  Withdraw
                 </Badge>
               </TableCell>
-              <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                2023-06-27
-              </TableCell>
-              <TableCell className="text-right">$550.00</TableCell>
+              <TableCell className="md:table-cell ">$3456</TableCell>
+              <TableCell className="text-right font-bold">$8723.67</TableCell>
             </TableRow>
           </TableBody>
         </Table>
