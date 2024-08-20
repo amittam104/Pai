@@ -17,8 +17,25 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { LuArrowUpRight } from "react-icons/lu";
+import { useQuery } from "@tanstack/react-query";
+import { getSummary } from "@/services/apiSummary";
+import { getTransactions } from "@/services/apiTransactions";
 
 function SummaryTable() {
+  // const { data: summary, isLoading } = useQuery({
+  //   queryKey: ["summary"],
+  //   queryFn: getSummary,
+  // });
+
+  // if (isLoading) <p>Loading data...</p>;
+
+  // // const { data: transactions } = useQuery({
+  // //   queryKey: ["transactions"],
+  // //   queryFn: getTransactions,
+  // // });
+
+  // // const { accountNo, accountHolderName } = summary;
+
   return (
     <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
       <CardHeader className="flex flex-row items-center">
@@ -46,7 +63,24 @@ function SummaryTable() {
               <TableHead className="text-right">Balance</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody className="font-medium">
+          <TableBody className="font-medium text-slate-700">
+            {summary.map((sum) => {
+              return (
+                <TableRow key={sum.accountNo}>
+                  <TableCell>{sum.accountNo}</TableCell>
+                  <TableCell>{sum.accountHolderName}</TableCell>
+                  <TableCell className="">
+                    <Badge className="text-xs " variant="outline">
+                      Deposit
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="md:table-cell ">$756</TableCell>
+                  <TableCell className="text-right font-bold text-slate-800">
+                    $2508.67
+                  </TableCell>
+                </TableRow>
+              );
+            })}
             <TableRow>
               <TableCell>1001</TableCell>
               <TableCell>Liam Johnson</TableCell>
@@ -56,7 +90,9 @@ function SummaryTable() {
                 </Badge>
               </TableCell>
               <TableCell className="md:table-cell ">$756</TableCell>
-              <TableCell className="text-right font-bold">$2508.67</TableCell>
+              <TableCell className="text-right font-bold text-slate-800">
+                $2508.67
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1001</TableCell>
@@ -67,7 +103,9 @@ function SummaryTable() {
                 </Badge>
               </TableCell>
               <TableCell className="md:table-cell ">$654</TableCell>
-              <TableCell className="text-right font-bold">$7643.23</TableCell>
+              <TableCell className="text-right font-bold text-slate-800">
+                $7643.23
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1001</TableCell>
@@ -78,7 +116,9 @@ function SummaryTable() {
                 </Badge>
               </TableCell>
               <TableCell className="md:table-cell ">$344</TableCell>
-              <TableCell className="text-right font-bold">$1243.67</TableCell>
+              <TableCell className="text-right font-bold text-slate-800">
+                $1243.67
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1001</TableCell>
@@ -89,7 +129,9 @@ function SummaryTable() {
                 </Badge>
               </TableCell>
               <TableCell className="md:table-cell ">$4356</TableCell>
-              <TableCell className="text-right font-bold">$5634.23</TableCell>
+              <TableCell className="text-right font-bold text-slate-800">
+                $5634.23
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>1001</TableCell>
@@ -100,7 +142,9 @@ function SummaryTable() {
                 </Badge>
               </TableCell>
               <TableCell className="md:table-cell ">$3456</TableCell>
-              <TableCell className="text-right font-bold">$8723.67</TableCell>
+              <TableCell className="text-right font-bold text-slate-800">
+                $8723.67
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
