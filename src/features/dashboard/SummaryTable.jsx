@@ -18,23 +18,40 @@ import {
 } from "@/components/ui/card";
 import { LuArrowUpRight } from "react-icons/lu";
 import { useQuery } from "@tanstack/react-query";
-import { getSummary } from "@/services/apiSummary";
 import { getTransactions } from "@/services/apiTransactions";
+import { getAccounts } from "@/services/apiAccounts";
 
 function SummaryTable() {
-  // const { data: summary, isLoading } = useQuery({
-  //   queryKey: ["summary"],
-  //   queryFn: getSummary,
+  const summaryTable = [];
+
+  const { data: accounts, isLoading } = useQuery({
+    queryKey: ["accounts"],
+    queryFn: getAccounts,
+  });
+
+  if (isLoading) <p>Loading data...</p>;
+
+  if (accounts)
+    accounts.map((account) => {
+      // console.log(account.accountNo);
+      summaryTable.push({
+        accountNo: account.accountNo,
+        accountHolderName: account.accountHolderName,
+        balance: account.balance,
+      });
+    });
+
+  // summaryTable?.map((summary) => {
+  //   console.log(summary);
+  //   transactions.map((trn) => {
+  //     console.log(trn);
+  //     if (trn.accountNo === summary.accountNo) {
+  //       summary.amount = trn.amount;
+  //     }
+  //   });
   // });
 
-  // if (isLoading) <p>Loading data...</p>;
-
-  // // const { data: transactions } = useQuery({
-  // //   queryKey: ["transactions"],
-  // //   queryFn: getTransactions,
-  // // });
-
-  // // const { accountNo, accountHolderName } = summary;
+  // console.log(summaryTable);
 
   return (
     <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
@@ -64,23 +81,6 @@ function SummaryTable() {
             </TableRow>
           </TableHeader>
           <TableBody className="font-medium text-slate-700">
-            {summary.map((sum) => {
-              return (
-                <TableRow key={sum.accountNo}>
-                  <TableCell>{sum.accountNo}</TableCell>
-                  <TableCell>{sum.accountHolderName}</TableCell>
-                  <TableCell className="">
-                    <Badge className="text-xs " variant="outline">
-                      Deposit
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="md:table-cell ">$756</TableCell>
-                  <TableCell className="text-right font-bold text-slate-800">
-                    $2508.67
-                  </TableCell>
-                </TableRow>
-              );
-            })}
             <TableRow>
               <TableCell>1001</TableCell>
               <TableCell>Liam Johnson</TableCell>
