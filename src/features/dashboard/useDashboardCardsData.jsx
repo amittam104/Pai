@@ -18,11 +18,15 @@ export function useDashboardCardsData() {
     queryFn: getLoanSummary,
   });
 
+  // console.log(loans);
+
   // 3. Get crediot cards data from summary table
   const { data: creditCards } = useQuery({
     queryKey: ["cards"],
     queryFn: getCardsSummary,
   });
+
+  // console.log(creditCards);
 
   // 4. Get all transactions data from transactions table
 

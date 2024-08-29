@@ -14,6 +14,21 @@ export async function getAccounts() {
   }
 }
 
+// export async function getAccountName(accountNo) {
+//   try {
+//     const { data, error } = await supabase
+//       .from("accounts")
+//       .eq("accountNo", accountNo)
+//       .select("accountHolderName");
+
+//     if (error) throw new Error("Could not get the account holder name");
+
+//     return data;
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// }
+
 export async function deleteAccounts(id) {
   try {
     const { error } = await supabase.from("accounts").delete().eq("id", id);

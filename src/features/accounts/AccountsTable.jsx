@@ -4,8 +4,8 @@ import { getAccounts } from "@/services/apiAccounts";
 import { columns } from "@/ui/accounts/columns";
 import { DataTable } from "@/ui/accounts/data-table";
 import { useQuery } from "@tanstack/react-query";
-import { useDeleteCabin } from "./useDeleteCabin";
 import { useAddAccount } from "./useAddAccount";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 function AccountsTable({
   showEditForm,

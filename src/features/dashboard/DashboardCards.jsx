@@ -1,10 +1,10 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import {
+  LuActivity,
+  LuCreditCard,
   LuDollarSign,
   LuUsers,
-  LuCreditCard,
-  LuActivity,
 } from "react-icons/lu";
 import { useDashboardCardsData } from "./useDashboardCardsData";
 

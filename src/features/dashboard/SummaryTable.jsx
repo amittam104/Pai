@@ -1,57 +1,38 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
-import { LuArrowUpRight } from "react-icons/lu";
-import { useQuery } from "@tanstack/react-query";
-import { getTransactions } from "@/services/apiTransactions";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getAccounts } from "@/services/apiAccounts";
+import { getTransactions } from "@/services/apiTransactions";
+import { useQuery } from "@tanstack/react-query";
+import { LuArrowUpRight } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 function SummaryTable() {
-  const summaryTable = [];
+  const { data: transactionsData, isLoading: isLoadingTrn } = useQuery({
+    queryKey: ["transaction"],
+    queryFn: getTransactions,
+  });
 
-  const { data: accounts, isLoading } = useQuery({
+  const { data: accountsData } = useQuery({
     queryKey: ["accounts"],
     queryFn: getAccounts,
   });
 
-  if (isLoading) <p>Loading data...</p>;
-
-  if (accounts)
-    accounts.map((account) => {
-      // console.log(account.accountNo);
-      summaryTable.push({
-        accountNo: account.accountNo,
-        accountHolderName: account.accountHolderName,
-        balance: account.balance,
-      });
-    });
-
-  // summaryTable?.map((summary) => {
-  //   console.log(summary);
-  //   transactions.map((trn) => {
-  //     console.log(trn);
-  //     if (trn.accountNo === summary.accountNo) {
-  //       summary.amount = trn.amount;
-  //     }
-  //   });
-  // });
-
-  // console.log(summaryTable);
+  if (isLoadingTrn) return console.log("Loading...");
 
   return (
     <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
@@ -81,7 +62,48 @@ function SummaryTable() {
             </TableRow>
           </TableHeader>
           <TableBody className="font-medium text-slate-700">
-            <TableRow>
+            {transactionsData?.map((trn) => {
+              return (
+                <TableRow key={trn.id}>
+                  <TableCell>{trn.accountNo}</TableCell>
+                  <TableCell>
+                    {accountsData?.map((acc) => {
+                      if (acc.accountNo === trn.accountNo)
+                        return acc.accountHolderName;
+                    })}
+                  </TableCell>
+                  <TableCell className="">
+                    <Badge className="text-xs " variant="outline">
+                      {trn.type}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="md:table-cell ">
+                    ${trn.amount}
+                  </TableCell>
+                  <TableCell className="text-right font-bold text-slate-800">
+                    ${trn.balance}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+            {/* {transactionsData?.map((trans) => {
+              <TableRow>
+                <TableCell>{trans.accountNo}</TableCell>
+                <TableCell>{trans.accountHolderName}</TableCell>
+                <TableCell className="">
+                  <Badge className="text-xs " variant="outline">
+                    {trans.type}
+                  </Badge>
+                </TableCell>
+                <TableCell className="md:table-cell ">
+                  ${trans.amount}
+                </TableCell>
+                <TableCell className="text-right font-bold text-slate-800">
+                  ${trans.balance}
+                </TableCell>
+              </TableRow>;
+            })} */}
+            {/* <TableRow>
               <TableCell>1001</TableCell>
               <TableCell>Liam Johnson</TableCell>
               <TableCell className="">
@@ -145,7 +167,7 @@ function SummaryTable() {
               <TableCell className="text-right font-bold text-slate-800">
                 $8723.67
               </TableCell>
-            </TableRow>
+            </TableRow> */}
           </TableBody>
         </Table>
       </CardContent>
