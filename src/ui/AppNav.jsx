@@ -18,7 +18,7 @@ function AppNav() {
             location.pathname === "/dashboard" && "bg-slate-100 text-primary"
           }`}
         >
-          <Link to="/dashboard" className="flex items-center gap-4 px-10 py-4">
+          <Link to="/dashboard" className="flex items-center gap-4 px-6 py-4">
             <House /> <span>Dashboard</span>
           </Link>
         </li>
@@ -29,7 +29,7 @@ function AppNav() {
         >
           <Link
             to="/transactions"
-            className="flex items-center gap-4 px-10 py-4"
+            className="flex items-center gap-4 px-6 py-4"
           >
             <Banknote />
             <span>Transactions</span>
@@ -40,7 +40,7 @@ function AppNav() {
             location.pathname === "/accounts" && "bg-slate-100 text-primary"
           }`}
         >
-          <Link to="/accounts" className="flex items-center gap-4 px-10 py-4">
+          <Link to="/accounts" className="flex items-center gap-4 px-6 py-4">
             <IdCard /> <span>Accounts</span>
           </Link>
         </li>
@@ -50,7 +50,7 @@ function AppNav() {
             location.pathname === "/feedback" && "bg-slate-100 text-primary"
           }`}
         >
-          <Link to="/feedback" className="flex items-center gap-4 px-10 py-4">
+          <Link to="/feedback" className="flex items-center gap-4 px-6 py-4">
             <MessageSquareText /> <span>Feedback</span>
           </Link>
         </li>
@@ -59,7 +59,7 @@ function AppNav() {
             location.pathname === "/settings" && "bg-slate-100 text-primary"
           }`}
         >
-          <Link to="/settings" className="flex items-center gap-4 px-10 py-4">
+          <Link to="/settings" className="flex items-center gap-4 px-6 py-4">
             <Settings /> <span>Settings</span>
           </Link>
         </li>
